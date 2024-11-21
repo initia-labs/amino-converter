@@ -1,0 +1,1 @@
+export { generateMsgSubmitProposalAminoConverter } from './gov'

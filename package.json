@@ -1,0 +1,36 @@
+{
+  "name": "@initia/amino-converter",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --module commonjs",
+    "lint": "npx eslint . --fix",
+    "prepare": "husky"
+  },
+  "author": "Initia Foundation",
+  "license": "Apache-2.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.15.0"
+  },
+  "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.32.4",
+    "@cosmjs/proto-signing": "^0.32.4",
+    "@cosmjs/stargate": "^0.32.4",
+    "@initia/initia.proto": "^0.2.4",
+    "@initia/opinit.proto": "^0.0.11"
+  },
+  "lint-staged": {
+    "src/**/*.{mjs|ts}": [
+      "npx eslint . --fix"
+    ]
+  }
+}
