@@ -26,7 +26,7 @@ npm install @initia/amino-converter
 import { SigningStargateClient } from '@cosmjs/stargate'
 import { registry, aminoTypes } from '@initia/amino-converter'
 
-const signingClient = SigningStargateClient.connectWithSigner(
+const signingClient = await SigningStargateClient.connectWithSigner(
   '[RPC-URL]',
   signer, // Offline signer
   {
@@ -50,7 +50,7 @@ const aminoTypes = new AminoTypes({
   ...customAminoConverters,
 })
 
-const signingClient = SigningStargateClient.connectWithSigner(
+const signingClient = await SigningStargateClient.connectWithSigner(
   '[RPC-URL]',
   signer, // Offline signer
   {
@@ -92,7 +92,7 @@ const aminoTypes = new AminoTypes({
   msgExecuteMessagesAminoConverter,
 })
 
-const signingClient = SigningStargateClient.connectWithSigner(
+const signingClient = await SigningStargateClient.connectWithSigner(
   '[RPC-URL]',
   signer, // Offline signer
   {
