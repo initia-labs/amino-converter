@@ -5,11 +5,12 @@
   "scripts": {
     "build": "tsc --module commonjs",
     "lint": "npx eslint . --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prepublishOnly": "rm -rf ./dist && npm run build"
   },
   "author": "Initia Foundation",
   "license": "Apache-2.0",
-  "description": "",
+  "description": "Amino types and proto registry for initia chains",
   "files": [
     "dist"
   ],
