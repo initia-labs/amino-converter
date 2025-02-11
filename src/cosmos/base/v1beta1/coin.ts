@@ -12,6 +12,6 @@ export const Coin = {
   }),
   fromAmino: (coin: CoinAmino): Coin_pb => ({
     denom: coin.denom,
-    amount: coin.denom,
+    amount: coin.amount,
   }),
 }
