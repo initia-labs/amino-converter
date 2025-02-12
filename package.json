@@ -23,11 +23,13 @@
     "typescript-eslint": "^8.15.0"
   },
   "dependencies": {
-    "@cosmjs/cosmwasm-stargate": "^0.32.4",
-    "@cosmjs/proto-signing": "^0.32.4",
-    "@cosmjs/stargate": "^0.32.4",
     "@initia/initia.proto": "^0.2.4",
     "@initia/opinit.proto": "^0.0.11"
+  },
+  "peerDependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.32.4",
+    "@cosmjs/proto-signing": "^0.32.4",
+    "@cosmjs/stargate": "^0.32.4"
   },
   "lint-staged": {
     "src/**/*.{mjs|ts}": [
