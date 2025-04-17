@@ -45,7 +45,7 @@ export interface MsgSetBridgeInfoAmino {
 export interface MsgSpendFeePoolAmino {
   authority: string
   recipient: string
-  amount: CoinAmino[]
+  amount: CoinAmino[] | null
 }
 
 export interface MsgUpdateParamsAmino {

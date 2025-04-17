@@ -150,9 +150,10 @@ export const aminoConverters: AminoConverters = {
       sender: msg.sender,
       bridge_id: msg.bridgeId.toString(),
       output_index: msg.outputIndex.toString(),
-      withdrawal_proofs: msg.withdrawalProofs.map((proof) =>
-        bytesToBase64(proof)
-      ),
+      withdrawal_proofs:
+        msg.withdrawalProofs.length === 0
+          ? undefined
+          : msg.withdrawalProofs.map((proof) => bytesToBase64(proof)),
       from: msg.from,
       to: msg.to,
       sequence: msg.sequence.toString(),
@@ -167,9 +168,9 @@ export const aminoConverters: AminoConverters = {
       sender: msg.sender,
       bridgeId: BigInt(msg.bridge_id),
       outputIndex: BigInt(msg.output_index),
-      withdrawalProofs: msg.withdrawal_proofs.map((proof) =>
-        base64ToBytes(proof)
-      ),
+      withdrawalProofs: msg.withdrawal_proofs
+        ? msg.withdrawal_proofs.map((proof) => base64ToBytes(proof))
+        : [],
       from: msg.from,
       to: msg.to,
       sequence: BigInt(msg.sequence),

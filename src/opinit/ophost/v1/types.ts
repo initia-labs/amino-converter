@@ -55,12 +55,15 @@ export const BatchInfo = {
 
 export const Params = {
   toAmino: (params: Params_pb): ParamsAmino => ({
-    registration_fee: params.registrationFee.map((coin) => Coin.toAmino(coin)),
+    registration_fee:
+      params.registrationFee.length === 0
+        ? null
+        : params.registrationFee.map((coin) => Coin.toAmino(coin)),
   }),
   fromAmino: (params: ParamsAmino): Params_pb => ({
-    registrationFee: params.registration_fee.map((coin) =>
-      Coin.fromAmino(coin)
-    ),
+    registrationFee: params.registration_fee
+      ? params.registration_fee.map((coin) => Coin.fromAmino(coin))
+      : [],
   }),
 }
 
@@ -81,5 +84,5 @@ export interface BatchInfoAmino {
 }
 
 export interface ParamsAmino {
-  registration_fee: CoinAmino[]
+  registration_fee: CoinAmino[] | null
 }

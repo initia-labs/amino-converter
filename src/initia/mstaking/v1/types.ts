@@ -42,7 +42,7 @@ export const Params = {
     max_validators: params.maxValidators,
     max_entries: params.maxEntries,
     historical_entries: params.historicalEntries,
-    bond_denoms: params.bondDenoms,
+    bond_denoms: params.bondDenoms.length === 0 ? undefined : params.bondDenoms,
     min_voting_power: params.minVotingPower.toString(),
     min_commission_rate: params.minCommissionRate,
   }),
@@ -51,7 +51,7 @@ export const Params = {
     maxValidators: params.max_validators,
     maxEntries: params.max_entries,
     historicalEntries: params.historical_entries,
-    bondDenoms: params.bond_denoms,
+    bondDenoms: params.bond_denoms ?? [],
     minVotingPower: BigInt(params.min_voting_power),
     minCommissionRate: params.min_commission_rate,
   }),
@@ -76,7 +76,7 @@ export interface ParamsAmino {
   max_validators: number
   max_entries: number
   historical_entries: number
-  bond_denoms: string[]
+  bond_denoms?: string[]
   min_voting_power: string
   min_commission_rate: string
 }
