@@ -61,7 +61,10 @@ export const aminoConverters: AminoConverters = {
     aminoType: 'move/MsgPublish',
     toAmino: (msg: MsgPublish): MsgPublishAmino => ({
       sender: msg.sender,
-      code_bytes: msg.codeBytes.map((bytes) => bytesToBase64(bytes)),
+      code_bytes:
+        msg.codeBytes.length === 0
+          ? undefined
+          : msg.codeBytes.map((bytes) => bytesToBase64(bytes)),
       upgrade_policy:
         msg.upgradePolicy === UpgradePolicy.UNSPECIFIED
           ? undefined
@@ -69,7 +72,9 @@ export const aminoConverters: AminoConverters = {
     }),
     fromAmino: (msg: MsgPublishAmino): MsgPublish => ({
       sender: msg.sender,
-      codeBytes: msg.code_bytes.map((str) => base64ToBytes(str)),
+      codeBytes: msg.code_bytes
+        ? msg.code_bytes.map((str) => base64ToBytes(str))
+        : [],
       upgradePolicy: msg.upgrade_policy ?? UpgradePolicy.UNSPECIFIED,
     }),
   },
@@ -152,7 +157,10 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgGovPublish): MsgGovPublishAmino => ({
       authority: msg.authority,
       sender: msg.sender,
-      code_bytes: msg.codeBytes.map((bytes) => bytesToBase64(bytes)),
+      code_bytes:
+        msg.codeBytes.length === 0
+          ? undefined
+          : msg.codeBytes.map((bytes) => bytesToBase64(bytes)),
       upgrade_policy:
         msg.upgradePolicy === UpgradePolicy.UNSPECIFIED
           ? undefined
@@ -161,7 +169,9 @@ export const aminoConverters: AminoConverters = {
     fromAmino: (msg: MsgGovPublishAmino): MsgGovPublish => ({
       authority: msg.authority,
       sender: msg.sender,
-      codeBytes: msg.code_bytes.map((str) => base64ToBytes(str)),
+      codeBytes: msg.code_bytes
+        ? msg.code_bytes.map((str) => base64ToBytes(str))
+        : [],
       upgradePolicy: msg.upgrade_policy ?? UpgradePolicy.UNSPECIFIED,
     }),
   },

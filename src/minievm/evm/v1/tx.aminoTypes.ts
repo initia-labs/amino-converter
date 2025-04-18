@@ -4,7 +4,7 @@ export interface MsgCreateAmino {
   sender: string
   code: string
   value: string
-  access_list: AccessTupleAmino[]
+  access_list: AccessTupleAmino[] | null
 }
 
 export interface MsgCreate2Amino {
@@ -12,7 +12,7 @@ export interface MsgCreate2Amino {
   code: string
   salt: string
   value: string
-  access_list: AccessTupleAmino[]
+  access_list: AccessTupleAmino[] | null
 }
 
 export interface MsgCallAmino {
@@ -20,7 +20,7 @@ export interface MsgCallAmino {
   contract_addr: string
   input: string
   value: string
-  access_list: AccessTupleAmino[]
+  access_list: AccessTupleAmino[] | null
 }
 
 export interface MsgUpdateParamsAmino {

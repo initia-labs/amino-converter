@@ -30,20 +30,27 @@ export const Params = {
   toAmino: (params: Params_pb): ParamsAmino => ({
     max_validators: params.maxValidators,
     historical_entries: params.historicalEntries,
-    min_gas_prices: params.minGasPrices.map((coin) => Coin.toAmino(coin)),
-    bridge_executors: params.bridgeExecutors,
+    min_gas_prices:
+      params.minGasPrices.length === 0
+        ? undefined
+        : params.minGasPrices.map((coin) => Coin.toAmino(coin)),
+    bridge_executors:
+      params.bridgeExecutors.length === 0 ? null : params.bridgeExecutors,
     admin: params.admin,
-    fee_whitelist: params.feeWhitelist,
+    fee_whitelist:
+      params.feeWhitelist.length === 0 ? null : params.feeWhitelist,
     hook_max_gas: params.hookMaxGas.toString(),
   }),
 
   fromAmino: (params: ParamsAmino): Params_pb => ({
     maxValidators: params.max_validators,
     historicalEntries: params.historical_entries,
-    minGasPrices: params.min_gas_prices.map((coin) => Coin.fromAmino(coin)),
-    bridgeExecutors: params.bridge_executors,
+    minGasPrices: params.min_gas_prices
+      ? params.min_gas_prices.map((coin) => Coin.fromAmino(coin))
+      : [],
+    bridgeExecutors: params.bridge_executors ?? [],
     admin: params.admin,
-    feeWhitelist: params.fee_whitelist,
+    feeWhitelist: params.fee_whitelist ?? [],
     hookMaxGas: BigInt(params.hook_max_gas),
   }),
 }
@@ -59,9 +66,9 @@ export interface BridgeInfoAmino {
 export interface ParamsAmino {
   max_validators: number
   historical_entries: number
-  min_gas_prices: CoinAmino[]
-  bridge_executors: string[]
+  min_gas_prices?: CoinAmino[]
+  bridge_executors: string[] | null
   admin: string
-  fee_whitelist: string[]
+  fee_whitelist: string[] | null
   hook_max_gas: string
 }

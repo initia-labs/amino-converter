@@ -50,14 +50,17 @@ export const aminoConverters: AminoConverters = {
       pubkey: PubKey.toAminoMsg(
         PubKey.fromProtoMsg(msg.pubkey as PubKeyProtoMsg)
       ),
-      amount: msg.amount.map((coin) => Coin.toAmino(coin)),
+      amount:
+        msg.amount.length === 0
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgCreateValidatorAmino): MsgCreateValidator => ({
       description: Description.fromAmino(msg.description),
       commission: CommissionRates.fromAmino(msg.commission),
       validatorAddress: msg.validator_address,
       pubkey: PubKey.toProtoMsg(PubKey.fromAminoMsg(msg.pubkey)),
-      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+      amount: msg.amount ? msg.amount.map((coin) => Coin.fromAmino(coin)) : [],
     }),
   },
 
@@ -66,12 +69,15 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgDelegate): MsgDelegateAmino => ({
       delegator_address: msg.delegatorAddress,
       validator_address: msg.validatorAddress,
-      amount: msg.amount.map((coin) => Coin.toAmino(coin)),
+      amount:
+        msg.amount.length === 0
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgDelegateAmino): MsgDelegate => ({
       delegatorAddress: msg.delegator_address,
       validatorAddress: msg.validator_address,
-      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+      amount: msg.amount ? msg.amount.map((coin) => Coin.fromAmino(coin)) : [],
     }),
   },
 
@@ -81,13 +87,16 @@ export const aminoConverters: AminoConverters = {
       delegator_address: msg.delegatorAddress,
       validator_src_address: msg.validatorSrcAddress,
       validator_dst_address: msg.validatorDstAddress,
-      amount: msg.amount.map((coin) => Coin.toAmino(coin)),
+      amount:
+        msg.amount.length === 0
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgBeginRedelegateAmino): MsgBeginRedelegate => ({
       delegatorAddress: msg.delegator_address,
       validatorSrcAddress: msg.validator_src_address,
       validatorDstAddress: msg.validator_dst_address,
-      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+      amount: msg.amount ? msg.amount.map((coin) => Coin.fromAmino(coin)) : [],
     }),
   },
 
@@ -96,12 +105,15 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgUndelegate): MsgUndelegateAmino => ({
       delegator_address: msg.delegatorAddress,
       validator_address: msg.validatorAddress,
-      amount: msg.amount.map((coin) => Coin.toAmino(coin)),
+      amount:
+        msg.amount.length === 0
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgUndelegateAmino): MsgUndelegate => ({
       delegatorAddress: msg.delegator_address,
       validatorAddress: msg.validator_address,
-      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+      amount: msg.amount ? msg.amount.map((coin) => Coin.fromAmino(coin)) : [],
     }),
   },
 
@@ -112,7 +124,10 @@ export const aminoConverters: AminoConverters = {
     ): MsgCancelUnbondingDelegationAmino => ({
       delegator_address: msg.delegatorAddress,
       validator_address: msg.validatorAddress,
-      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+      amount:
+        msg.amount.length === 0
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
       creation_height: msg.creationHeight.toString(),
     }),
     fromAmino: (
@@ -120,7 +135,7 @@ export const aminoConverters: AminoConverters = {
     ): MsgCancelUnbondingDelegation => ({
       delegatorAddress: msg.delegator_address,
       validatorAddress: msg.validator_address,
-      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+      amount: msg.amount ? msg.amount.map((coin) => Coin.fromAmino(coin)) : [],
       creationHeight: BigInt(msg.creation_height),
     }),
   },

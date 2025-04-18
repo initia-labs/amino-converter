@@ -38,7 +38,7 @@ export interface MsgFinalizeTokenWithdrawalAmino {
   sender: string
   bridge_id: string
   output_index: string
-  withdrawal_proofs: string[]
+  withdrawal_proofs?: string[]
   from: string
   to: string
   sequence: string

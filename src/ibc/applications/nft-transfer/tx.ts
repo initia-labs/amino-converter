@@ -24,7 +24,7 @@ export const aminoConverters: AminoConverters = {
       source_port: msg.sourcePort,
       source_channel: msg.sourceChannel,
       class_id: msg.classId,
-      token_ids: msg.tokenIds,
+      token_ids: msg.tokenIds.length === 0 ? undefined : msg.tokenIds,
       sender: msg.sender,
       receiver: msg.receiver,
       timeout_height: msg.timeoutHeight
@@ -40,7 +40,7 @@ export const aminoConverters: AminoConverters = {
       sourcePort: msg.source_port,
       sourceChannel: msg.source_channel,
       classId: msg.class_id,
-      tokenIds: msg.token_ids,
+      tokenIds: msg.token_ids ?? [],
       sender: msg.sender,
       receiver: msg.receiver,
       timeoutHeight: Height.fromAmino(msg.timeout_height),

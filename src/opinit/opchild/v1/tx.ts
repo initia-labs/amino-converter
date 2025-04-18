@@ -144,12 +144,15 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgSpendFeePool): MsgSpendFeePoolAmino => ({
       authority: msg.authority,
       recipient: msg.recipient,
-      amount: msg.amount.map((coin) => Coin.toAmino(coin)),
+      amount:
+        msg.amount.length === 0
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgSpendFeePoolAmino): MsgSpendFeePool => ({
       authority: msg.authority,
       recipient: msg.recipient,
-      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+      amount: msg.amount ? msg.amount.map((coin) => Coin.fromAmino(coin)) : [],
     }),
   },
 

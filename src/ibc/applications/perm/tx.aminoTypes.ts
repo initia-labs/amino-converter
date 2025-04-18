@@ -9,5 +9,5 @@ export interface MsgUpdatePermissionedRelayersAmino {
   authority: string
   channel_id: string
   port_id: string
-  relayers: string[]
+  relayers?: string[]
 }

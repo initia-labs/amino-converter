@@ -21,7 +21,10 @@ export const Vesting = {
 
 export const Params = {
   toAmino: (params: Params_pb): ParamsAmino => ({
-    min_deposit: params.minDeposit.map((coin) => Coin.toAmino(coin)),
+    min_deposit:
+      params.minDeposit.length === 0
+        ? null
+        : params.minDeposit.map((coin) => Coin.toAmino(coin)),
     max_deposit_period: Duration.toAmino(
       params.maxDepositPeriod as Duration_pb
     ),
@@ -36,22 +39,31 @@ export const Params = {
       params.expeditedVotingPeriod as Duration_pb
     ),
     expedited_threshold: params.expeditedThreshold,
-    expedited_min_deposit: params.expeditedMinDeposit,
+    expedited_min_deposit:
+      params.expeditedMinDeposit.length === 0
+        ? null
+        : params.expeditedMinDeposit.map((coin) => Coin.toAmino(coin)),
     burn_vote_quorum: params.burnVoteQuorum,
     burn_proposal_deposit_prevote: params.burnProposalDepositPrevote,
     burn_vote_veto: params.burnVoteVeto,
     min_deposit_ratio: params.minDepositRatio,
-    emergency_min_deposit: params.emergencyMinDeposit.map((coin) =>
-      Coin.toAmino(coin)
-    ),
+    emergency_min_deposit:
+      params.emergencyMinDeposit.length === 0
+        ? null
+        : params.emergencyMinDeposit.map((coin) => Coin.toAmino(coin)),
     emergency_tally_interval: Duration.toAmino(
       params.emergencyTallyInterval as Duration_pb
     ),
-    low_threshold_functions: params.lowThresholdFunctions,
+    low_threshold_functions:
+      params.lowThresholdFunctions.length === 0
+        ? undefined
+        : params.lowThresholdFunctions,
     vesting: params.vesting ? Vesting.toAmino(params.vesting) : undefined,
   }),
   fromAmino: (params: ParamsAmino): Params_pb => ({
-    minDeposit: params.min_deposit.map((coin) => Coin.fromAmino(coin)),
+    minDeposit: params.min_deposit
+      ? params.min_deposit.map((coin) => Coin.fromAmino(coin))
+      : [],
     maxDepositPeriod: Duration.fromAmino(params.max_deposit_period),
     votingPeriod: Duration.fromAmino(params.voting_period),
     quorum: params.quorum,
@@ -62,22 +74,24 @@ export const Params = {
     proposalCancelDest: params.proposal_cancel_dest,
     expeditedVotingPeriod: Duration.fromAmino(params.expedited_voting_period),
     expeditedThreshold: params.expedited_threshold,
-    expeditedMinDeposit: params.expedited_min_deposit,
+    expeditedMinDeposit: params.expedited_min_deposit
+      ? params.expedited_min_deposit.map((coin) => Coin.fromAmino(coin))
+      : [],
     burnVoteQuorum: params.burn_vote_quorum,
     burnProposalDepositPrevote: params.burn_proposal_deposit_prevote,
     burnVoteVeto: params.burn_vote_veto,
     minDepositRatio: params.min_deposit_ratio,
-    emergencyMinDeposit: params.emergency_min_deposit.map((coin) =>
-      Coin.fromAmino(coin)
-    ),
+    emergencyMinDeposit: params.emergency_min_deposit
+      ? params.emergency_min_deposit.map((coin) => Coin.fromAmino(coin))
+      : [],
     emergencyTallyInterval: Duration.fromAmino(params.emergency_tally_interval),
-    lowThresholdFunctions: params.low_threshold_functions,
+    lowThresholdFunctions: params.low_threshold_functions ?? [],
     vesting: params.vesting ? Vesting.fromAmino(params.vesting) : undefined,
   }),
 }
 
 export interface ParamsAmino {
-  min_deposit: CoinAmino[]
+  min_deposit: CoinAmino[] | null
   max_deposit_period: DurationAmino
   voting_period: DurationAmino
   quorum: string
@@ -88,14 +102,14 @@ export interface ParamsAmino {
   proposal_cancel_dest: string
   expedited_voting_period: DurationAmino
   expedited_threshold: string
-  expedited_min_deposit: CoinAmino[]
+  expedited_min_deposit: CoinAmino[] | null
   burn_vote_quorum: boolean
   burn_proposal_deposit_prevote: boolean
   burn_vote_veto: boolean
   min_deposit_ratio: string
-  emergency_min_deposit: CoinAmino[]
+  emergency_min_deposit: CoinAmino[] | null
   emergency_tally_interval: DurationAmino
-  low_threshold_functions: string[]
+  low_threshold_functions?: string[]
   vesting?: VestingAmino
 }
 

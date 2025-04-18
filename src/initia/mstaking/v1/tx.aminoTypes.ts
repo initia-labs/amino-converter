@@ -7,7 +7,7 @@ export interface MsgCreateValidatorAmino {
   commission: CommissionRatesAmino
   validator_address: string
   pubkey: PubKeyAminoMsg
-  amount: CoinAmino[]
+  amount: CoinAmino[] | null
 }
 
 export interface MsgEditValidatorAmino {
@@ -19,26 +19,26 @@ export interface MsgEditValidatorAmino {
 export interface MsgDelegateAmino {
   delegator_address: string
   validator_address: string
-  amount: CoinAmino[]
+  amount: CoinAmino[] | null
 }
 
 export interface MsgBeginRedelegateAmino {
   delegator_address: string
   validator_src_address: string
   validator_dst_address: string
-  amount: CoinAmino[]
+  amount: CoinAmino[] | null
 }
 
 export interface MsgUndelegateAmino {
   delegator_address: string
   validator_address: string
-  amount: CoinAmino[]
+  amount: CoinAmino[] | null
 }
 
 export interface MsgCancelUnbondingDelegationAmino {
   delegator_address: string
   validator_address: string
-  amount: CoinAmino[]
+  amount: CoinAmino[] | null
   creation_height: string
 }
 

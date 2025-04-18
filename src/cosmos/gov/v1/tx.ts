@@ -17,7 +17,10 @@ export function generateMsgSubmitProposalAminoConverter(
     '/cosmos.gov.v1.MsgSubmitProposal': {
       aminoType: 'cosmos-sdk/v1/MsgSubmitProposal',
       toAmino: (msg: MsgSubmitProposal): MsgSubmitProposalAmino => ({
-        messages: msg.messages.map((msg) => toAminoMsg(msg)),
+        messages:
+          msg.messages.length === 0
+            ? undefined
+            : msg.messages.map((msg) => toAminoMsg(msg)),
         initial_deposit: msg.initialDeposit.map((coin) => Coin.toAmino(coin)),
         proposer: msg.proposer,
         metadata: msg.metadata === '' ? undefined : msg.metadata,
@@ -26,7 +29,9 @@ export function generateMsgSubmitProposalAminoConverter(
         expedited: msg.expedited,
       }),
       fromAmino: (msg: MsgSubmitProposalAmino): MsgSubmitProposal => ({
-        messages: msg.messages.map((msg) => toProtoMsg(msg)),
+        messages: msg.messages
+          ? msg.messages.map((msg) => toProtoMsg(msg))
+          : [],
         initialDeposit: msg.initial_deposit.map((coin) => Coin.fromAmino(coin)),
         proposer: msg.proposer,
         metadata: msg.metadata ?? '',

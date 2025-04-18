@@ -3,7 +3,7 @@ import { DenomUnit, DenomUnitAmino } from './denomUnit'
 
 export interface MetadataAmino {
   description: string
-  denom_units: DenomUnitAmino[]
+  denom_units?: DenomUnitAmino[]
   base: string
   display: string
   name: string
@@ -15,9 +15,10 @@ export interface MetadataAmino {
 export const Metadata = {
   toAmino: (metadata: Metadata_pb): MetadataAmino => ({
     description: metadata.description,
-    denom_units: metadata.denomUnits.map((denomUint) =>
-      DenomUnit.toAmino(denomUint)
-    ),
+    denom_units:
+      metadata.denomUnits.length === 0
+        ? undefined
+        : metadata.denomUnits.map((denomUint) => DenomUnit.toAmino(denomUint)),
     base: metadata.base,
     display: metadata.display,
     name: metadata.name,
@@ -27,9 +28,9 @@ export const Metadata = {
   }),
   fromAmino: (metadata: MetadataAmino): Metadata_pb => ({
     description: metadata.description,
-    denomUnits: metadata.denom_units.map((denomUnit) =>
-      DenomUnit.fromAmino(denomUnit)
-    ),
+    denomUnits: metadata.denom_units
+      ? metadata.denom_units.map((denomUnit) => DenomUnit.fromAmino(denomUnit))
+      : [],
     base: metadata.base,
     display: metadata.display,
     name: metadata.name,

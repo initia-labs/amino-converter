@@ -5,7 +5,7 @@ export interface MsgNftTransferAmino {
   source_port: string
   source_channel: string
   class_id: string
-  token_ids: string[]
+  token_ids?: string[]
   sender: string
   receiver: string
   timeout_height: HeightAmino

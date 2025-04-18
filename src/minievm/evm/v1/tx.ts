@@ -33,17 +33,22 @@ export const aminoConverters: AminoConverters = {
       sender: msg.sender,
       code: msg.code,
       value: msg.value,
-      access_list: msg.accessList.map((accessTuple) =>
-        AccessTuple.toAmino(accessTuple)
-      ),
+      access_list:
+        msg.accessList.length === 0
+          ? null
+          : msg.accessList.map((accessTuple) =>
+              AccessTuple.toAmino(accessTuple)
+            ),
     }),
     fromAmino: (msg: MsgCreateAmino): MsgCreate => ({
       sender: msg.sender,
       code: msg.code,
       value: msg.value,
-      accessList: msg.access_list.map((accessTuple) =>
-        AccessTuple.fromAmino(accessTuple)
-      ),
+      accessList: msg.access_list
+        ? msg.access_list.map((accessTuple) =>
+            AccessTuple.fromAmino(accessTuple)
+          )
+        : [],
     }),
   },
 
@@ -54,18 +59,23 @@ export const aminoConverters: AminoConverters = {
       code: msg.code,
       value: msg.value,
       salt: msg.salt.toString(),
-      access_list: msg.accessList.map((accessTuple) =>
-        AccessTuple.toAmino(accessTuple)
-      ),
+      access_list:
+        msg.accessList.length === 0
+          ? null
+          : msg.accessList.map((accessTuple) =>
+              AccessTuple.toAmino(accessTuple)
+            ),
     }),
     fromAmino: (msg: MsgCreate2Amino): MsgCreate2 => ({
       sender: msg.sender,
       code: msg.code,
       value: msg.value,
       salt: BigInt(msg.salt),
-      accessList: msg.access_list.map((accessTuple) =>
-        AccessTuple.fromAmino(accessTuple)
-      ),
+      accessList: msg.access_list
+        ? msg.access_list.map((accessTuple) =>
+            AccessTuple.fromAmino(accessTuple)
+          )
+        : [],
     }),
   },
 
@@ -76,18 +86,23 @@ export const aminoConverters: AminoConverters = {
       contract_addr: msg.contractAddr,
       input: msg.input,
       value: msg.value,
-      access_list: msg.accessList.map((accessTuple) =>
-        AccessTuple.toAmino(accessTuple)
-      ),
+      access_list:
+        msg.accessList.length === 0
+          ? null
+          : msg.accessList.map((accessTuple) =>
+              AccessTuple.toAmino(accessTuple)
+            ),
     }),
     fromAmino: (msg: MsgCallAmino): MsgCall => ({
       sender: msg.sender,
       contractAddr: msg.contract_addr,
       input: msg.input,
       value: msg.value,
-      accessList: msg.access_list.map((accessTuple) =>
-        AccessTuple.fromAmino(accessTuple)
-      ),
+      accessList: msg.access_list
+        ? msg.access_list.map((accessTuple) =>
+            AccessTuple.fromAmino(accessTuple)
+          )
+        : [],
     }),
   },
 

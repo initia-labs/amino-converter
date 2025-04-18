@@ -3,7 +3,7 @@ import { ParamsAmino } from './types'
 
 export interface MsgPublishAmino {
   sender: string
-  code_bytes: string[]
+  code_bytes?: string[]
   upgrade_policy?: UpgradePolicy
 }
 
@@ -42,7 +42,7 @@ export interface MsgScriptJSONAmino {
 export interface MsgGovPublishAmino {
   authority: string
   sender: string
-  code_bytes: string[]
+  code_bytes?: string[]
   upgrade_policy?: UpgradePolicy
 }
 

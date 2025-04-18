@@ -5,20 +5,29 @@ import {
 
 export const Params = {
   toAmino: (params: Params_pb): ParamsAmino => ({
-    extra_eips: params.extraEips.map((eip) => eip.toString()),
-    allowed_publishers: params.allowedPublishers,
+    extra_eips:
+      params.extraEips.length === 0
+        ? undefined
+        : params.extraEips.map((eip) => eip.toString()),
+    allowed_publishers:
+      params.allowedPublishers.length === 0 ? null : params.allowedPublishers,
     allow_custom_erc20: params.allowCustomErc20,
-    allowed_custom_erc20s: params.allowedCustomErc20s,
+    allowed_custom_erc20s:
+      params.allowedCustomErc20s.length === 0
+        ? null
+        : params.allowedCustomErc20s,
     fee_denom: params.feeDenom,
     gas_refund_ratio: params.gasRefundRatio,
     num_retain_block_hashes: params.numRetainBlockHashes.toString(),
   }),
 
   fromAmino: (params: ParamsAmino): Params_pb => ({
-    extraEips: params.extra_eips.map((eip) => BigInt(eip)),
-    allowedPublishers: params.allowed_publishers,
+    extraEips: params.extra_eips
+      ? params.extra_eips.map((eip) => BigInt(eip))
+      : [],
+    allowedPublishers: params.allowed_publishers ?? [],
     allowCustomErc20: params.allow_custom_erc20,
-    allowedCustomErc20s: params.allowed_custom_erc20s,
+    allowedCustomErc20s: params.allowed_custom_erc20s ?? [],
     feeDenom: params.fee_denom,
     gasRefundRatio: params.gas_refund_ratio,
     numRetainBlockHashes: BigInt(params.num_retain_block_hashes),
@@ -28,20 +37,20 @@ export const Params = {
 export const AccessTuple = {
   toAmino: (accessTuple: AccessTuple_pb): AccessTupleAmino => ({
     address: accessTuple.address,
-    storage_keys: accessTuple.storageKeys,
+    storage_keys: accessTuple.storageKeys.length === 0 ? undefined : [],
   }),
 
   fromAmino: (accessTuple: AccessTupleAmino): AccessTuple_pb => ({
     address: accessTuple.address,
-    storageKeys: accessTuple.storage_keys,
+    storageKeys: accessTuple.storage_keys ?? [],
   }),
 }
 
 export interface ParamsAmino {
-  extra_eips: string[]
-  allowed_publishers: string[]
+  extra_eips?: string[]
+  allowed_publishers: string[] | null
   allow_custom_erc20: boolean
-  allowed_custom_erc20s: string[]
+  allowed_custom_erc20s: string[] | null
   fee_denom: string
   gas_refund_ratio: string
   num_retain_block_hashes: string
@@ -49,5 +58,5 @@ export interface ParamsAmino {
 
 export interface AccessTupleAmino {
   address: string
-  storage_keys: string[]
+  storage_keys?: string[]
 }

@@ -44,7 +44,7 @@ export const aminoConverters: AminoConverters = {
       authority: msg.authority,
       channel_id: msg.channelId,
       port_id: msg.portId,
-      relayers: msg.relayers,
+      relayers: msg.relayers.length === 0 ? undefined : msg.relayers,
     }),
     fromAmino: (
       msg: MsgUpdatePermissionedRelayersAmino
@@ -52,7 +52,7 @@ export const aminoConverters: AminoConverters = {
       authority: msg.authority,
       channelId: msg.channel_id,
       portId: msg.port_id,
-      relayers: msg.relayers,
+      relayers: msg.relayers ?? [],
     }),
   },
 }
