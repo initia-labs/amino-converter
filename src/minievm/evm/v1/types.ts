@@ -10,12 +10,12 @@ export const Params = {
         ? undefined
         : params.extraEips.map((eip) => eip.toString()),
     allowed_publishers:
-      params.allowedPublishers.length === 0 ? params.allowedPublishers : null,
+      params.allowedPublishers.length === 0 ? null : params.allowedPublishers,
     allow_custom_erc20: params.allowCustomErc20,
     allowed_custom_erc20s:
       params.allowedCustomErc20s.length === 0
-        ? params.allowedCustomErc20s
-        : null,
+        ? null
+        : params.allowedCustomErc20s,
     fee_denom: params.feeDenom,
     gas_refund_ratio: params.gasRefundRatio,
     num_retain_block_hashes: params.numRetainBlockHashes.toString(),

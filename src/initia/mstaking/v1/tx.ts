@@ -52,8 +52,8 @@ export const aminoConverters: AminoConverters = {
       ),
       amount:
         msg.amount.length === 0
-          ? msg.amount.map((coin) => Coin.toAmino(coin))
-          : null,
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgCreateValidatorAmino): MsgCreateValidator => ({
       description: Description.fromAmino(msg.description),
@@ -71,8 +71,8 @@ export const aminoConverters: AminoConverters = {
       validator_address: msg.validatorAddress,
       amount:
         msg.amount.length === 0
-          ? msg.amount.map((coin) => Coin.toAmino(coin))
-          : null,
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgDelegateAmino): MsgDelegate => ({
       delegatorAddress: msg.delegator_address,
@@ -89,8 +89,8 @@ export const aminoConverters: AminoConverters = {
       validator_dst_address: msg.validatorDstAddress,
       amount:
         msg.amount.length === 0
-          ? msg.amount.map((coin) => Coin.toAmino(coin))
-          : null,
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgBeginRedelegateAmino): MsgBeginRedelegate => ({
       delegatorAddress: msg.delegator_address,
@@ -107,8 +107,8 @@ export const aminoConverters: AminoConverters = {
       validator_address: msg.validatorAddress,
       amount:
         msg.amount.length === 0
-          ? msg.amount.map((coin) => Coin.toAmino(coin))
-          : null,
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
     }),
     fromAmino: (msg: MsgUndelegateAmino): MsgUndelegate => ({
       delegatorAddress: msg.delegator_address,
@@ -126,8 +126,8 @@ export const aminoConverters: AminoConverters = {
       validator_address: msg.validatorAddress,
       amount:
         msg.amount.length === 0
-          ? msg.amount.map((coin) => Coin.toAmino(coin))
-          : null,
+          ? null
+          : msg.amount.map((coin) => Coin.toAmino(coin)),
       creation_height: msg.creationHeight.toString(),
     }),
     fromAmino: (
