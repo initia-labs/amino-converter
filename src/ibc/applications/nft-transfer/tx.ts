@@ -19,7 +19,7 @@ export const registry: readonly [string, GeneratedType][] = [
 // amino converters
 export const aminoConverters: AminoConverters = {
   '/ibc.applications.nft_transfer.v1.MsgTransfer': {
-    aminoType: 'nft_transfer/MsgTransfer',
+    aminoType: 'nft-transfer/MsgTransfer',
     toAmino: (msg: MsgTransfer): MsgNftTransferAmino => ({
       source_port: msg.sourcePort,
       source_channel: msg.sourceChannel,
