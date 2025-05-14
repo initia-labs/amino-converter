@@ -8,7 +8,7 @@ export interface MsgNftTransferAmino {
   token_ids?: string[]
   sender: string
   receiver: string
-  timeout_height: HeightAmino
+  timeout_height?: HeightAmino
   timeout_timestamp?: string
   memo?: string
 }
