@@ -15,7 +15,10 @@ export const Height = {
       height.revision_height === undefined &&
       height.revision_height === undefined
     ) {
-      return undefined
+      return {
+        revisionHeight: 0n,
+        revisionNumber: 0n,
+      }
     }
 
     if (
