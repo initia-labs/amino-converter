@@ -6,16 +6,25 @@ export interface HeightAmino {
 }
 
 export const Height = {
-  toAmino: (height: Height_pb): HeightAmino => ({
-    revision_number: height.revisionNumber.toString(),
-    revision_height: height.revisionHeight.toString(),
-  }),
+  toAmino: (height: Height_pb): HeightAmino => {
+    if (height.revisionNumber === 0n && height.revisionHeight === 0n) {
+      return {}
+    }
+
+    return {
+      revision_number: height.revisionNumber.toString(),
+      revision_height: height.revisionHeight.toString(),
+    }
+  },
   fromAmino: (height: HeightAmino): Height_pb | undefined => {
     if (
       height.revision_height === undefined &&
       height.revision_height === undefined
     ) {
-      return undefined
+      return {
+        revisionHeight: 0n,
+        revisionNumber: 0n,
+      }
     }
 
     if (

@@ -29,7 +29,7 @@ export const aminoConverters: AminoConverters = {
       receiver: msg.receiver,
       timeout_height: msg.timeoutHeight
         ? Height.toAmino(msg.timeoutHeight)
-        : {},
+        : undefined,
       timeout_timestamp:
         msg.timeoutTimestamp === BigInt(0)
           ? undefined
@@ -43,7 +43,9 @@ export const aminoConverters: AminoConverters = {
       tokenIds: msg.token_ids ?? [],
       sender: msg.sender,
       receiver: msg.receiver,
-      timeoutHeight: Height.fromAmino(msg.timeout_height),
+      timeoutHeight: msg.timeout_height
+        ? Height.fromAmino(msg.timeout_height)
+        : undefined,
       timeoutTimestamp: msg.timeout_timestamp
         ? BigInt(msg.timeout_timestamp)
         : BigInt(0),
