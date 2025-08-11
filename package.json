@@ -1,9 +1,15 @@
 {
   "name": "@initia/amino-converter",
-  "version": "1.0.4",
-  "main": "dist/index.js",
+  "version": "1.0.5",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
-    "build": "tsc --module commonjs",
+    "build": "tsup",
     "lint": "npx eslint . --fix",
     "prepare": "husky",
     "prepublishOnly": "rm -rf ./dist && npm run build"
@@ -19,17 +25,23 @@
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
+    "tsup": "^8.5.0",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.15.0"
   },
   "dependencies": {
-    "@initia/initia.proto": "^0.2.4",
-    "@initia/opinit.proto": "^0.0.11"
+    "@cosmjs/cosmwasm-stargate": "^0.34.0",
+    "@cosmjs/proto-signing": "^0.34.0",
+    "@cosmjs/stargate": "^0.34.0",
+    "@initia/initia.proto": "^1.0.3",
+    "@initia/opinit.proto": "^1.0.2"
   },
   "peerDependencies": {
-    "@cosmjs/cosmwasm-stargate": ">=0",
-    "@cosmjs/proto-signing": ">=0",
-    "@cosmjs/stargate": ">=0"
+    "@cosmjs/cosmwasm-stargate": ">=0.34.0",
+    "@cosmjs/proto-signing": ">=0.34.0",
+    "@cosmjs/stargate": ">=0.34.0",
+    "@initia/initia.proto": ">=1.0.0",
+    "@initia/opinit.proto": ">=1.0.0"
   },
   "lint-staged": {
     "src/**/*.{mjs|ts}": [
