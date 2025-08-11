@@ -15,7 +15,6 @@
     "outDir": "./dist",
     "rootDir": "src",
     "baseUrl": "./",
-    "incremental": true,
     "strict": false,
     "noImplicitAny": true,
     "alwaysStrict": true,
