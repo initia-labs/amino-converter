@@ -3,7 +3,6 @@ import {
   MsgBurn,
   MsgChangeAdmin,
   MsgCreateDenom,
-  MsgForceTransfer,
   MsgMint,
   MsgSetBeforeSendHook,
   MsgSetDenomMetadata,
@@ -14,7 +13,6 @@ import {
   MsgBurnAmino,
   MsgChangeAdminAmino,
   MsgCreateDenomAmino,
-  MsgForceTransferAmino,
   MsgMintAmino,
   MsgSetBeforeSendHookAmino,
   MsgSetDenomMetadataAmino,
@@ -36,7 +34,6 @@ export const registry: readonly [string, GeneratedType][] = [
   ['/miniwasm.tokenfactory.v1.MsgChangeAdmin', MsgChangeAdmin],
   ['/miniwasm.tokenfactory.v1.MsgSetBeforeSendHook', MsgSetBeforeSendHook],
   ['/miniwasm.tokenfactory.v1.MsgSetDenomMetadata', MsgSetDenomMetadata],
-  ['/miniwasm.tokenfactory.v1.MsgForceTransfer', MsgForceTransfer],
   ['/miniwasm.tokenfactory.v1.MsgUpdateParams', MsgUpdateParams],
 ]
 
@@ -73,12 +70,10 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgBurn): MsgBurnAmino => ({
       sender: msg.sender,
       amount: Coin.toAmino(msg.amount as Coin_pb),
-      burn_from_address: msg.burnFromAddress,
     }),
     fromAmino: (msg: MsgBurnAmino): MsgBurn => ({
       sender: msg.sender,
       amount: Coin.fromAmino(msg.amount),
-      burnFromAddress: msg.burn_from_address,
     }),
   },
 
@@ -119,22 +114,6 @@ export const aminoConverters: AminoConverters = {
     fromAmino: (msg: MsgSetDenomMetadataAmino): MsgSetDenomMetadata => ({
       sender: msg.sender,
       metadata: Metadata.fromAmino(msg.metadata),
-    }),
-  },
-
-  '/miniwasm.tokenfactory.v1.MsgForceTransfer': {
-    aminoType: 'tokenfactory/MsgForceTransfer',
-    toAmino: (msg: MsgForceTransfer): MsgForceTransferAmino => ({
-      sender: msg.sender,
-      amount: Coin.toAmino(msg.amount as Coin_pb),
-      transfer_from_address: msg.transferFromAddress,
-      transfer_to_address: msg.transferToAddress,
-    }),
-    fromAmino: (msg: MsgForceTransferAmino): MsgForceTransfer => ({
-      sender: msg.sender,
-      amount: Coin.fromAmino(msg.amount),
-      transferFromAddress: msg.transfer_from_address,
-      transferToAddress: msg.transfer_to_address,
     }),
   },
 

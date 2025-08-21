@@ -16,7 +16,6 @@ export interface MsgMintAmino {
 export interface MsgBurnAmino {
   sender: string
   amount: CoinAmino
-  burn_from_address: string
 }
 
 export interface MsgChangeAdminAmino {
@@ -34,13 +33,6 @@ export interface MsgSetBeforeSendHookAmino {
 export interface MsgSetDenomMetadataAmino {
   sender: string
   metadata: MetadataAmino
-}
-
-export interface MsgForceTransferAmino {
-  sender: string
-  amount: CoinAmino
-  transfer_from_address: string
-  transfer_to_address: string
 }
 
 export interface MsgUpdateParamsAmino {

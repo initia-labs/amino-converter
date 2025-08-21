@@ -54,6 +54,10 @@ export const Params = {
     emergency_tally_interval: Duration.toAmino(
       params.emergencyTallyInterval as Duration_pb
     ),
+    emergency_submitters:
+      params.emergencySubmitters.length === 0
+        ? undefined
+        : params.emergencySubmitters,
     low_threshold_functions:
       params.lowThresholdFunctions.length === 0
         ? undefined
@@ -85,6 +89,7 @@ export const Params = {
       ? params.emergency_min_deposit.map((coin) => Coin.fromAmino(coin))
       : [],
     emergencyTallyInterval: Duration.fromAmino(params.emergency_tally_interval),
+    emergencySubmitters: params.emergency_submitters ?? [],
     lowThresholdFunctions: params.low_threshold_functions ?? [],
     vesting: params.vesting ? Vesting.fromAmino(params.vesting) : undefined,
   }),
@@ -109,6 +114,7 @@ export interface ParamsAmino {
   min_deposit_ratio: string
   emergency_min_deposit: CoinAmino[] | null
   emergency_tally_interval: DurationAmino
+  emergency_submitters?: string[]
   low_threshold_functions?: string[]
   vesting?: VestingAmino
 }
