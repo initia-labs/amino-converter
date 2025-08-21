@@ -58,7 +58,7 @@ export const aminoConverters: AminoConverters = {
       sender: msg.sender,
       code: msg.code,
       value: msg.value,
-      salt: msg.salt.toString(),
+      salt: msg.salt,
       access_list:
         msg.accessList.length === 0
           ? null
@@ -70,7 +70,7 @@ export const aminoConverters: AminoConverters = {
       sender: msg.sender,
       code: msg.code,
       value: msg.value,
-      salt: BigInt(msg.salt),
+      salt: msg.salt,
       accessList: msg.access_list
         ? msg.access_list.map((accessTuple) =>
             AccessTuple.fromAmino(accessTuple)
