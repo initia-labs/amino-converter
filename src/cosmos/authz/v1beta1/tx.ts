@@ -8,7 +8,7 @@ import { Grant as Grant_pb } from '@initia/initia.proto/cosmos/authz/v1beta1/aut
 // registry
 
 export const registry: readonly [string, GeneratedType][] = [
-  ['/cosmos.feegrant.v1beta1.MsgGrantAllowance', MsgGrant],
+  ['/cosmos.authz.v1beta1.MsgGrant', MsgGrant],
 ]
 
 // amino converters
