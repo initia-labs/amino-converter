@@ -91,6 +91,9 @@ export namespace Allowance {
             PeriodicAllowance.fromAmino(msg.value)
           ).finish(),
         }
+
+      default:
+        throw new Error(`Unsupported type`)
     }
   }
 }

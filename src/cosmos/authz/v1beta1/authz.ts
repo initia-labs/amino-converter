@@ -25,7 +25,7 @@ export const GenericAuthorization = {
   toAmino: (msg: GenericAuthorization_pb): GenericAuthorizationAmino => ({
     msg: msg.msg,
   }),
-  fromAmino: (msg: GenericAuthorization_pb): GenericAuthorization_pb => ({
+  fromAmino: (msg: GenericAuthorizationAmino): GenericAuthorization_pb => ({
     msg: msg.msg,
   }),
 }
