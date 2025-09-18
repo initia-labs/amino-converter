@@ -1,4 +1,7 @@
-import { Params as Params_pb } from '@initia/initia.proto/initia/move/v1/types'
+import {
+  Params as Params_pb,
+  ExecuteAuthorizationItem as ExecuteAuthorizationItem_pb,
+} from '@initia/initia.proto/initia/move/v1/types'
 
 export const Params = {
   toAmino: (msg: Params_pb): ParamsAmino => ({
@@ -24,4 +27,28 @@ export interface ParamsAmino {
   contract_shared_revenue_ratio: string
   script_enabled: boolean
   allowed_publishers: string[] | null
+}
+
+export const ExecuteAuthorizationItem = {
+  toAmino: (
+    msg: ExecuteAuthorizationItem_pb
+  ): ExecuteAuthorizationItemAmino => ({
+    module_address: msg.moduleAddress,
+    module_name: msg.moduleName,
+    function_name:
+      msg.functionNames.length === 0 ? undefined : msg.functionNames,
+  }),
+  fromAmino: (
+    msg: ExecuteAuthorizationItemAmino
+  ): ExecuteAuthorizationItem_pb => ({
+    moduleAddress: msg.module_address,
+    moduleName: msg.module_name,
+    functionNames: msg.function_name ?? [],
+  }),
+}
+
+export interface ExecuteAuthorizationItemAmino {
+  module_address: string
+  module_name: string
+  function_name?: string[]
 }

@@ -19,7 +19,11 @@ import {
   opinitRegistry,
   generateMsgExecuteMessagesAminoConverter,
 } from './opinit'
-import { generateMsgSubmitProposalAminoConverter } from './cosmos'
+import {
+  cosmosAminoConverters,
+  cosmosRegistry,
+  generateMsgSubmitProposalAminoConverter,
+} from './cosmos'
 
 export { generateMsgSubmitTxAminoConverter } from './initia'
 export { generateMsgExecuteMessagesAminoConverter } from './opinit'
@@ -27,6 +31,7 @@ export { generateMsgSubmitProposalAminoConverter } from './cosmos'
 
 export const protoRegistry = [
   ...defaultRegistryTypes,
+  ...cosmosRegistry,
   ...wasmTypes,
   ...ibcRegistry,
   ...initiaRegistry,
@@ -40,6 +45,7 @@ export const registry: Registry = new Registry(protoRegistry)
 const tmpAminoConverters: AminoConverters = {
   ...createDefaultAminoConverters(),
   ...createWasmAminoConverters(),
+  ...cosmosAminoConverters,
   ...ibcAminoConverters,
   ...initiaAminoConverters,
   ...minievmAminoConverters,
