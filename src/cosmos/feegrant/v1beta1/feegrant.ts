@@ -37,7 +37,7 @@ export const PeriodicAllowance = {
     periodSpendLimit: msg.period_spend_limit.map((coin) =>
       Coin.fromAmino(coin)
     ),
-    periodCanSpend: msg.period_can_spend.map((coin) => Coin.toAmino(coin)),
+    periodCanSpend: msg.period_can_spend.map((coin) => Coin.fromAmino(coin)),
     periodReset: new Date(msg.period_reset),
   }),
 }

@@ -83,21 +83,21 @@ export interface ContractMigrationAuthorizationAmino {
 export const CodeGrant = {
   toAmino: (msg: CodeGrant_pb): CodeGrantAmino => ({
     code_hash: bytesToBase64(msg.codeHash),
-    instanitate_permission: msg.instantiatePermission
+    instantiate_permission: msg.instantiatePermission
       ? AccessConfig.toAmino(msg.instantiatePermission)
       : undefined,
   }),
   fromAmino: (msg: CodeGrantAmino): CodeGrant_pb => ({
     codeHash: base64ToBytes(msg.code_hash),
-    instantiatePermission: msg.instanitate_permission
-      ? AccessConfig.fromAmino(msg.instanitate_permission)
+    instantiatePermission: msg.instantiate_permission
+      ? AccessConfig.fromAmino(msg.instantiate_permission)
       : undefined,
   }),
 }
 
 export interface CodeGrantAmino {
   code_hash: string
-  instanitate_permission?: AccessConfigAmino
+  instantiate_permission?: AccessConfigAmino
 }
 
 export const ContractGrant = {

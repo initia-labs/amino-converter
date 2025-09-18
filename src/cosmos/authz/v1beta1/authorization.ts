@@ -49,7 +49,7 @@ export const AuthorizationMsg = {
         return {
           type: 'cosmos-sdk/SendAuthorization',
           value: {
-            spend_lmit: sendAuthorization.spendLimit.map((coin) =>
+            spend_limit: sendAuthorization.spendLimit.map((coin) =>
               Coin.toAmino(coin)
             ),
             allow_list: sendAuthorization.allowList,
@@ -161,7 +161,7 @@ export const AuthorizationMsg = {
 
       case 'cosmos-sdk/SendAuthorization': {
         const value = SendAuthorization.fromPartial({
-          spendLimit: msg.value.spend_lmit.map((coin) => Coin.fromAmino(coin)),
+          spendLimit: msg.value.spend_limit.map((coin) => Coin.fromAmino(coin)),
           allowList: msg.value.allow_list,
         })
         return {
