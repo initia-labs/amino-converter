@@ -24,6 +24,7 @@ import {
   cosmosRegistry,
   generateMsgSubmitProposalAminoConverter,
 } from './cosmos'
+import { generateMsgExecAminoConverter } from './cosmos/authz/v1beta1/tx'
 
 export { generateMsgSubmitTxAminoConverter } from './initia'
 export { generateMsgExecuteMessagesAminoConverter } from './opinit'
@@ -61,6 +62,11 @@ const msgSubmitTxAminoConverter = generateMsgSubmitTxAminoConverter(
 const msgExecuteMessagesAminoConverter =
   generateMsgExecuteMessagesAminoConverter(protoRegistry, tmpAminoConverters)
 
+const msgExecAminoConverter = generateMsgExecAminoConverter(
+  protoRegistry,
+  tmpAminoConverters
+)
+
 const msgSubmitProposalAminoConverter = generateMsgSubmitProposalAminoConverter(
   protoRegistry,
   tmpAminoConverters
@@ -70,6 +76,7 @@ export const aminoConverters: AminoConverters = {
   ...tmpAminoConverters,
   ...msgSubmitTxAminoConverter,
   ...msgExecuteMessagesAminoConverter,
+  ...msgExecAminoConverter,
   ...msgSubmitProposalAminoConverter,
 }
 
