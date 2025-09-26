@@ -13,7 +13,7 @@ npm install @initia/amino-converter
 ## Included Types
 
 - [Cosmos Types](https://github.com/cosmos/cosmos-sdk/tree/main/proto)
-- [Cosmwasm Types](https://github.com/cosmos/wasmd/tree/master/proto)
+- [CosmWasm Types](https://github.com/cosmos/wasmd/tree/master/proto)
 - [Initia Types](https://github.com/initia-labs/initia/tree/main/proto)
 - [Evm Types](https://github.com/initia-labs/minievm/tree/main/proto)
 - [Opinit Types](https://github.com/initia-labs/OPinit/tree/main/proto)
@@ -62,7 +62,7 @@ const signingClient = await SigningStargateClient.connectWithSigner(
 
 ### Generate Amino Converter With Custom Msg
 
-If you need to use `MsgExecuteMessages`, `MsgSubmitProposal` and `MsgSubmitTx` with your custom messages, you need to register your custom messages to thier amino converter.
+If you need to use `MsgExecuteMessages`, `MsgSubmitProposal` and `MsgSubmitTx` with your custom messages, you need to register your custom messages to their amino converter.
 
 ```typescript
 import { Registry } from '@cosmjs/proto-signing'
