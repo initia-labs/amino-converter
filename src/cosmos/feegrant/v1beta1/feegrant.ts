@@ -10,17 +10,17 @@ import { Any } from '@initia/initia.proto/google/protobuf/any'
 export const BasicAllowance = {
   toAmino: (msg: BasicAllowance_pb): BasicAllowanceAmino => ({
     spend_limit: msg.spendLimit.map((coin) => Coin.toAmino(coin)),
-    expiration: (msg.expiration as Date).toISOString(),
+    expiration: msg.expiration ? msg.expiration.toISOString() : undefined,
   }),
   fromAmino: (msg: BasicAllowanceAmino): BasicAllowance_pb => ({
     spendLimit: msg.spend_limit.map((coin) => Coin.fromAmino(coin)),
-    expiration: new Date(msg.expiration),
+    expiration: msg.expiration ? new Date(msg.expiration) : undefined,
   }),
 }
 
 export interface BasicAllowanceAmino {
   spend_limit: CoinAmino[]
-  expiration: string
+  expiration?: string
 }
 
 export const PeriodicAllowance = {

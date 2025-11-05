@@ -8,17 +8,17 @@ import { Any } from '@initia/initia.proto/google/protobuf/any'
 export const Grant = {
   toAmino: (msg: Grant_pb): GrantAmino => ({
     authorization: AuthorizationMsg.toAmino(msg.authorization as Any),
-    expiration: (msg.expiration as Date).toISOString(),
+    expiration: msg.expiration ? msg.expiration.toISOString() : undefined,
   }),
   fromAmino: (msg: GrantAmino): Grant_pb => ({
     authorization: AuthorizationMsg.fromAmino(msg.authorization),
-    expiration: new Date(msg.expiration),
+    expiration: msg.expiration ? new Date(msg.expiration) : undefined,
   }),
 }
 
 export interface GrantAmino {
   authorization: AuthorizationMsgAmino
-  expiration: string
+  expiration?: string
 }
 
 export const GenericAuthorization = {
