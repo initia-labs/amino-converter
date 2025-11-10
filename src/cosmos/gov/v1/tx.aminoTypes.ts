@@ -15,7 +15,7 @@ export interface MsgVoteAmino {
   proposal_id: string
   voter: string
   option: number
-  metadata: string
+  metadata?: string
 }
 
 export interface MsgDepositAmino {

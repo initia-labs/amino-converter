@@ -66,13 +66,13 @@ export const aminoConverters: AminoConverters = {
       proposal_id: msg.proposalId.toString(),
       voter: msg.voter,
       option: msg.option,
-      metadata: msg.metadata,
+      metadata: msg.metadata === '' ? undefined : msg.metadata,
     }),
     fromAmino: (msg: MsgVoteAmino): MsgVote => ({
       proposalId: BigInt(msg.proposal_id),
       voter: msg.voter,
       option: msg.option,
-      metadata: msg.metadata,
+      metadata: msg.metadata ?? '',
     }),
   },
 
