@@ -10,3 +10,16 @@ export interface MsgSubmitProposalAmino {
   summary: string
   expedited: boolean
 }
+
+export interface MsgVoteAmino {
+  proposal_id: string
+  voter: string
+  option: number
+  metadata?: string
+}
+
+export interface MsgDepositAmino {
+  proposal_id: string
+  depositor: string
+  amount: CoinAmino[]
+}
