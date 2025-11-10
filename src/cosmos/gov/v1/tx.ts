@@ -1,7 +1,15 @@
 import { GeneratedType } from '@cosmjs/proto-signing'
 import { AminoConverters } from '@cosmjs/stargate'
-import { MsgSubmitProposal } from '@initia/initia.proto/cosmos/gov/v1/tx'
-import { MsgSubmitProposalAmino } from './tx.aminoTypes'
+import {
+  MsgDeposit,
+  MsgSubmitProposal,
+  MsgVote,
+} from '@initia/initia.proto/cosmos/gov/v1/tx'
+import {
+  MsgDepositAmino,
+  MsgSubmitProposalAmino,
+  MsgVoteAmino,
+} from './tx.aminoTypes'
 import { createMsgConverter } from '../../../utils'
 import { Coin } from '../../base/v1beta1/coin'
 
@@ -41,4 +49,44 @@ export function generateMsgSubmitProposalAminoConverter(
       }),
     },
   }
+}
+
+// registry
+
+export const registry: readonly [string, GeneratedType][] = [
+  ['/cosmos.gov.v1.MsgVote', MsgVote],
+  ['/cosmos.gov.v1.MsgDeposit', MsgDeposit],
+]
+
+// amino converters
+export const aminoConverters: AminoConverters = {
+  '/cosmos.gov.v1.MsgVote': {
+    aminoType: 'cosmos-sdk/v1/MsgVote',
+    toAmino: (msg: MsgVote): MsgVoteAmino => ({
+      proposal_id: msg.proposalId.toString(),
+      voter: msg.voter,
+      option: msg.option,
+      metadata: msg.metadata,
+    }),
+    fromAmino: (msg: MsgVoteAmino): MsgVote => ({
+      proposalId: BigInt(msg.proposal_id),
+      voter: msg.voter,
+      option: msg.option,
+      metadata: msg.metadata,
+    }),
+  },
+
+  '/cosmos.gov.v1.MsgDeposit': {
+    aminoType: 'cosmos-sdk/v1/MsgDeposit',
+    toAmino: (msg: MsgDeposit): MsgDepositAmino => ({
+      proposal_id: msg.proposalId.toString(),
+      depositor: msg.depositor,
+      amount: msg.amount.map((coin) => Coin.toAmino(coin)),
+    }),
+    fromAmino: (msg: MsgDepositAmino): MsgDeposit => ({
+      proposalId: BigInt(msg.proposal_id),
+      depositor: msg.depositor,
+      amount: msg.amount.map((coin) => Coin.fromAmino(coin)),
+    }),
+  },
 }
