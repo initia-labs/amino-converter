@@ -8,7 +8,7 @@ export interface MsgSubmitProposalAmino {
   metadata?: string
   title: string
   summary: string
-  expedited: boolean
+  expedited?: boolean
 }
 
 export interface MsgVoteAmino {
