@@ -34,7 +34,7 @@ export function generateMsgSubmitProposalAminoConverter(
         metadata: msg.metadata === '' ? undefined : msg.metadata,
         title: msg.title,
         summary: msg.summary,
-        expedited: msg.expedited,
+        expedited: msg.expedited ? true : undefined,
       }),
       fromAmino: (msg: MsgSubmitProposalAmino): MsgSubmitProposal => ({
         messages: msg.messages
@@ -45,7 +45,7 @@ export function generateMsgSubmitProposalAminoConverter(
         metadata: msg.metadata ?? '',
         title: msg.title,
         summary: msg.summary,
-        expedited: msg.expedited,
+        expedited: msg.expedited ?? false,
       }),
     },
   }
