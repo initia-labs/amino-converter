@@ -1,29 +1,26 @@
 import { GeneratedType } from '@cosmjs/proto-signing'
 import {
-  MsgAddValidator,
   MsgExecuteMessages,
   MsgFinalizeTokenDeposit,
   MsgInitiateTokenWithdrawal,
-  MsgRemoveValidator,
   MsgSetBridgeInfo,
   MsgSpendFeePool,
   MsgUpdateOracle,
   MsgUpdateParams,
+  MsgMigrateToken,
 } from '@initia/opinit.proto/opinit/opchild/v1/tx'
 
 import { AminoConverters } from '@cosmjs/stargate'
 import {
-  MsgAddValidatorAmino,
   MsgExecuteMessagesAmino,
   MsgFinalizeTokenDepositAmino,
   MsgInitiateTokenWithdrawalAmino,
-  MsgRemoveValidatorAmino,
+  MsgMigrateTokenAmino,
   MsgSetBridgeInfoAmino,
   MsgSpendFeePoolAmino,
   MsgUpdateOracleAmino,
   MsgUpdateParamsAmino,
 } from './tx.aminoTypes'
-import { PubKey, PubKeyProtoMsg } from '../../../cosmos/crypto/ed25519/keys'
 import { Coin } from '../../../cosmos/base/v1beta1/coin'
 import { Coin as Coin_pb } from '@initia/initia.proto/cosmos/base/v1beta1/coin'
 import {
@@ -40,37 +37,18 @@ import { BridgeInfo, Params } from './types'
 // registry
 
 export const registry: readonly [string, GeneratedType][] = [
-  ['/opinit.opchild.v1.MsgAddValidator', MsgAddValidator],
   ['/opinit.opchild.v1.MsgExecuteMessages', MsgExecuteMessages],
   ['/opinit.opchild.v1.MsgFinalizeTokenDeposit', MsgFinalizeTokenDeposit],
   ['/opinit.opchild.v1.MsgInitiateTokenWithdrawal', MsgInitiateTokenWithdrawal],
-  ['/opinit.opchild.v1.MsgRemoveValidator', MsgRemoveValidator],
   ['/opinit.opchild.v1.MsgSetBridgeInfo', MsgSetBridgeInfo],
   ['/opinit.opchild.v1.MsgSpendFeePool', MsgSpendFeePool],
   ['/opinit.opchild.v1.MsgUpdateParams', MsgUpdateParams],
   ['/opinit.opchild.v1.MsgUpdateOracle', MsgUpdateOracle],
+  ['/opinit.opchild.v1.MsgMigrateToken', MsgMigrateToken],
 ]
 
 // amino converters
 export const aminoConverters: AminoConverters = {
-  '/opinit.opchild.v1.MsgAddValidator': {
-    aminoType: 'opchild/MsgAddValidator',
-    toAmino: (msg: MsgAddValidator): MsgAddValidatorAmino => ({
-      authority: msg.authority,
-      moniker: msg.moniker,
-      validator_address: msg.validatorAddress,
-      pubkey: PubKey.toAminoMsg(
-        PubKey.fromProtoMsg(msg.pubkey as PubKeyProtoMsg)
-      ),
-    }),
-    fromAmino: (msg: MsgAddValidatorAmino): MsgAddValidator => ({
-      authority: msg.authority,
-      moniker: msg.moniker,
-      validatorAddress: msg.validator_address,
-      pubkey: PubKey.toProtoMsg(PubKey.fromAminoMsg(msg.pubkey)),
-    }),
-  },
-
   '/opinit.opchild.v1.MsgFinalizeTokenDeposit': {
     aminoType: 'opchild/MsgFinalizeTokenDeposit',
     toAmino: (msg: MsgFinalizeTokenDeposit): MsgFinalizeTokenDepositAmino => ({
@@ -112,18 +90,6 @@ export const aminoConverters: AminoConverters = {
       sender: msg.sender,
       to: msg.to,
       amount: Coin.fromAmino(msg.amount),
-    }),
-  },
-
-  '/opinit.opchild.v1.MsgRemoveValidator': {
-    aminoType: 'opchild/MsgRemoveValidator',
-    toAmino: (msg: MsgRemoveValidator): MsgRemoveValidatorAmino => ({
-      authority: msg.authority,
-      validator_address: msg.validatorAddress,
-    }),
-    fromAmino: (msg: MsgRemoveValidatorAmino): MsgRemoveValidator => ({
-      authority: msg.authority,
-      validatorAddress: msg.validator_address,
     }),
   },
 
@@ -179,6 +145,18 @@ export const aminoConverters: AminoConverters = {
       sender: msg.sender,
       height: BigInt(msg.height),
       data: msg.data ? base64ToBytes(msg.data) : new Uint8Array([]),
+    }),
+  },
+
+  '/opinit.opchild.v1.MsgMigrateToken': {
+    aminoType: 'opchild/MsgMigrateToken',
+    toAmino: (msg: MsgMigrateToken): MsgMigrateTokenAmino => ({
+      sender: msg.sender,
+      amount: Coin.toAmino(msg.amount as Coin_pb),
+    }),
+    fromAmino: (msg: MsgMigrateTokenAmino): MsgMigrateToken => ({
+      sender: msg.sender,
+      amount: Coin.fromAmino(msg.amount),
     }),
   },
 }
