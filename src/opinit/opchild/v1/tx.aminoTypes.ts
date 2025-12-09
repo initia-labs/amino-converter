@@ -1,14 +1,6 @@
 import { CoinAmino } from '../../../cosmos/base/v1beta1/coin'
-import { PubKeyAminoMsg } from '../../../cosmos/crypto/ed25519/keys'
 import { MsgAmino } from '../../../types'
 import { BridgeInfoAmino, ParamsAmino } from './types'
-
-export interface MsgAddValidatorAmino {
-  authority: string
-  moniker: string
-  validator_address: string
-  pubkey: PubKeyAminoMsg
-}
 
 export interface MsgExecuteMessagesAmino {
   sender: string
@@ -32,11 +24,6 @@ export interface MsgInitiateTokenWithdrawalAmino {
   amount: CoinAmino
 }
 
-export interface MsgRemoveValidatorAmino {
-  authority: string
-  validator_address: string
-}
-
 export interface MsgSetBridgeInfoAmino {
   sender: string
   bridge_info: BridgeInfoAmino
@@ -57,4 +44,9 @@ export interface MsgUpdateOracleAmino {
   sender: string
   height: string
   data?: string
+}
+
+export interface MsgMigrateTokenAmino {
+  sender: string
+  amount: CoinAmino
 }
