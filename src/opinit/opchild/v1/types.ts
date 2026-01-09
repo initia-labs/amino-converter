@@ -5,7 +5,7 @@ import {
 
 import { BridgeConfig, BridgeConfigAmino } from '../../ophost/v1/types'
 import { BridgeConfig as BridgeConfig_pb } from '@initia/opinit.proto/opinit/ophost/v1/types'
-import { Coin, CoinAmino } from '../../../cosmos/base/v1beta1/coin'
+import { CoinAmino, DecCoin } from '../../../cosmos/base/v1beta1/coin'
 
 export const BridgeInfo = {
   toAmino: (bridgeInfo: BridgeInfo_pb): BridgeInfoAmino => ({
@@ -33,7 +33,7 @@ export const Params = {
     min_gas_prices:
       params.minGasPrices.length === 0
         ? undefined
-        : params.minGasPrices.map((coin) => Coin.toAmino(coin)),
+        : params.minGasPrices.map((coin) => DecCoin.toAmino(coin)),
     bridge_executors:
       params.bridgeExecutors.length === 0 ? null : params.bridgeExecutors,
     admin: params.admin,
@@ -46,7 +46,7 @@ export const Params = {
     maxValidators: params.max_validators,
     historicalEntries: params.historical_entries,
     minGasPrices: params.min_gas_prices
-      ? params.min_gas_prices.map((coin) => Coin.fromAmino(coin))
+      ? params.min_gas_prices.map((coin) => DecCoin.fromAmino(coin))
       : [],
     bridgeExecutors: params.bridge_executors ?? [],
     admin: params.admin,
