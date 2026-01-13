@@ -32,7 +32,7 @@
     "@cosmjs/cosmwasm-stargate": "^0.36.0",
     "@cosmjs/proto-signing": "^0.36.0",
     "@cosmjs/stargate": "^0.36.0",
-    "@initia/initia.proto": "^1.0.3",
+    "@initia/initia.proto": "^1.0.4",
     "@initia/opinit.proto": "^1.0.3"
   },
   "peerDependencies": {

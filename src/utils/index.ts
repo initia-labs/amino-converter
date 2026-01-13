@@ -40,9 +40,12 @@ export function createMsgConverter(
     }
 
     toProtoMsgs[aminoConverter.aminoType] = (msg: MsgAmino) => {
+      const encoded = proto.encode(aminoConverter.fromAmino(msg.value)) as {
+        finish: () => Uint8Array
+      }
       return {
         typeUrl: typeUrl,
-        value: proto.encode(aminoConverter.fromAmino(msg.value)).finish(),
+        value: encoded.finish(),
       }
     }
   }

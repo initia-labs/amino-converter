@@ -1,4 +1,8 @@
-import { AccessTupleAmino, ParamsAmino } from './types'
+import {
+  AccessTupleAmino,
+  ParamsAmino,
+  SetCodeAuthorizationAmino,
+} from './types'
 
 export interface MsgCreateAmino {
   sender: string
@@ -21,6 +25,7 @@ export interface MsgCallAmino {
   input: string
   value: string
   access_list: AccessTupleAmino[] | null
+  auth_list?: SetCodeAuthorizationAmino[]
 }
 
 export interface MsgUpdateParamsAmino {
