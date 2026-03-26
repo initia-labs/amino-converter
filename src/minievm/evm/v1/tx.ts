@@ -88,7 +88,7 @@ export const aminoConverters: AminoConverters = {
       value: msg.value,
       access_list:
         msg.accessList.length === 0
-          ? null
+          ? undefined
           : msg.accessList.map((accessTuple) =>
               AccessTuple.toAmino(accessTuple)
             ),

@@ -20,7 +20,7 @@ export interface MsgCallAmino {
   contract_addr: string
   input: string
   value: string
-  access_list: AccessTupleAmino[] | null
+  access_list?: AccessTupleAmino[] | null
 }
 
 export interface MsgUpdateParamsAmino {
