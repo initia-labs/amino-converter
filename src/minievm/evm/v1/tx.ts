@@ -98,6 +98,7 @@ export const aminoConverters: AminoConverters = {
       contractAddr: msg.contract_addr,
       input: msg.input,
       value: msg.value,
+      authList: [],
       accessList: msg.access_list
         ? msg.access_list.map((accessTuple) =>
             AccessTuple.fromAmino(accessTuple)
