@@ -86,6 +86,12 @@ export const aminoConverters: AminoConverters = {
       contract_addr: msg.contractAddr,
       input: msg.input,
       value: msg.value,
+      auth_list:
+        msg.accessList.length === 0
+          ? undefined
+          : msg.authList.map((setCodeAuthorization) =>
+              SetCodeAuthorization.toAmino(setCodeAuthorization)
+            ),
       access_list:
         msg.accessList.length === 0
           ? null
