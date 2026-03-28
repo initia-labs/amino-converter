@@ -14,7 +14,7 @@ import {
   MsgUpdateParamsAmino,
 } from './tx.aminoTypes'
 import { Params as Params_pb } from '@initia/initia.proto/minievm/evm/v1/types'
-import { AccessTuple, Params } from './types'
+import { AccessTuple, Params, SetCodeAuthorization } from './types'
 
 // registry
 
@@ -86,6 +86,12 @@ export const aminoConverters: AminoConverters = {
       contract_addr: msg.contractAddr,
       input: msg.input,
       value: msg.value,
+      auth_list:
+        msg.accessList.length === 0
+          ? null
+          : msg.authList.map((setCodeAuthorization) =>
+              SetCodeAuthorization.toAmino(setCodeAuthorization)
+            ),
       access_list:
         msg.accessList.length === 0
           ? null
@@ -98,6 +104,11 @@ export const aminoConverters: AminoConverters = {
       contractAddr: msg.contract_addr,
       input: msg.input,
       value: msg.value,
+      authList: msg.auth_list
+        ? msg.auth_list.map((setCodeAuthorization) =>
+            SetCodeAuthorization.fromAmino(setCodeAuthorization)
+          )
+        : [],
       accessList: msg.access_list
         ? msg.access_list.map((accessTuple) =>
             AccessTuple.fromAmino(accessTuple)
