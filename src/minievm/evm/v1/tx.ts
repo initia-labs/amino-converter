@@ -88,7 +88,7 @@ export const aminoConverters: AminoConverters = {
       value: msg.value,
       auth_list:
         msg.accessList.length === 0
-          ? null
+          ? undefined
           : msg.authList.map((setCodeAuthorization) =>
               SetCodeAuthorization.toAmino(setCodeAuthorization)
             ),

@@ -24,7 +24,7 @@ export interface MsgCallAmino {
   contract_addr: string
   input: string
   value: string
-  auth_list: SetCodeAuthorizationAmino[] | null
+  auth_list?: SetCodeAuthorizationAmino[]
   access_list: AccessTupleAmino[] | null
 }
 
