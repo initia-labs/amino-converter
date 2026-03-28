@@ -1,7 +1,9 @@
 import {
   AccessTuple as AccessTuple_pb,
   Params as Params_pb,
+  SetCodeAuthorization as SetCodeAuthorization_pb,
 } from '@initia/initia.proto/minievm/evm/v1/types'
+import { base64ToBytes, bytesToBase64 } from '../../../utils'
 
 export const Params = {
   toAmino: (params: Params_pb): ParamsAmino => ({
@@ -46,6 +48,26 @@ export const AccessTuple = {
   }),
 }
 
+export const SetCodeAuthorization = {
+  toAmino: (
+    accessTuple: SetCodeAuthorization_pb
+  ): SetCodeAuthorizationAmino => ({
+    chain_id: accessTuple.chainId,
+    address: accessTuple.address,
+    nonce: accessTuple.nonce.toString(),
+    signature: bytesToBase64(accessTuple.signature),
+  }),
+
+  fromAmino: (
+    accessTuple: SetCodeAuthorizationAmino
+  ): SetCodeAuthorization_pb => ({
+    chainId: accessTuple.chain_id,
+    address: accessTuple.address,
+    nonce: BigInt(accessTuple.nonce),
+    signature: base64ToBytes(accessTuple.signature),
+  }),
+}
+
 export interface ParamsAmino {
   extra_eips?: string[]
   allowed_publishers: string[] | null
@@ -59,4 +81,11 @@ export interface ParamsAmino {
 export interface AccessTupleAmino {
   address: string
   storage_keys?: string[]
+}
+
+export interface SetCodeAuthorizationAmino {
+  chain_id: string
+  address: string
+  nonce: string
+  signature: string
 }
