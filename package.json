@@ -1,6 +1,6 @@
 {
   "name": "@initia/amino-converter",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "repository": {
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@cosmjs/cosmwasm-stargate": "^0.36.0",
+    "@cosmjs/encoding": "^0.36.0",
     "@cosmjs/proto-signing": "^0.36.0",
     "@cosmjs/stargate": "^0.36.0",
     "@initia/initia.proto": "^1.0.3",
@@ -37,6 +38,7 @@
   },
   "peerDependencies": {
     "@cosmjs/cosmwasm-stargate": ">=0.36.0",
+    "@cosmjs/encoding": ">=0.36.0",
     "@cosmjs/proto-signing": ">=0.36.0",
     "@cosmjs/stargate": ">=0.36.0",
     "@initia/initia.proto": ">=1.0.0",

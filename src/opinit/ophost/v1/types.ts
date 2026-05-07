@@ -7,7 +7,7 @@ import {
 } from '@initia/opinit.proto/opinit/ophost/v1/types'
 import { Duration, DurationAmino } from '../../../google/protobuf/duration'
 import { Duration as Duration_pb } from '@initia/initia.proto/google/protobuf/duration'
-import { base64ToBytes, bytesToBase64 } from '../../../utils'
+import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import { Coin, CoinAmino } from '../../../cosmos/base/v1beta1/coin'
 
 export const BridgeConfig = {
@@ -26,7 +26,7 @@ export const BridgeConfig = {
     metadata:
       bridgeConfig.metadata.length === 0
         ? undefined
-        : bytesToBase64(bridgeConfig.metadata),
+        : toBase64(bridgeConfig.metadata),
   }),
   fromAmino: (bridgeConfig: BridgeConfigAmino): BridgeConfig_pb => ({
     challenger: bridgeConfig.challenger,
@@ -37,7 +37,7 @@ export const BridgeConfig = {
     submissionStartHeight: BigInt(bridgeConfig.submission_start_height),
     oracleEnabled: bridgeConfig.oracle_enabled,
     metadata: bridgeConfig.metadata
-      ? base64ToBytes(bridgeConfig.metadata)
+      ? fromBase64(bridgeConfig.metadata)
       : new Uint8Array([]),
   }),
 }

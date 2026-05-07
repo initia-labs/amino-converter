@@ -3,7 +3,7 @@ import {
   Params as Params_pb,
   SetCodeAuthorization as SetCodeAuthorization_pb,
 } from '@initia/initia.proto/minievm/evm/v1/types'
-import { base64ToBytes, bytesToBase64 } from '../../../utils'
+import { fromBase64, toBase64 } from '@cosmjs/encoding'
 
 export const Params = {
   toAmino: (params: Params_pb): ParamsAmino => ({
@@ -55,7 +55,7 @@ export const SetCodeAuthorization = {
     chain_id: accessTuple.chainId,
     address: accessTuple.address,
     nonce: accessTuple.nonce.toString(),
-    signature: bytesToBase64(accessTuple.signature),
+    signature: toBase64(accessTuple.signature),
   }),
 
   fromAmino: (
@@ -64,7 +64,7 @@ export const SetCodeAuthorization = {
     chainId: accessTuple.chain_id,
     address: accessTuple.address,
     nonce: BigInt(accessTuple.nonce),
-    signature: base64ToBytes(accessTuple.signature),
+    signature: fromBase64(accessTuple.signature),
   }),
 }
 

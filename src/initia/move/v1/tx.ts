@@ -14,7 +14,7 @@ import {
   MsgDelist,
   MsgUpdateParams,
 } from '@initia/initia.proto/initia/move/v1/tx'
-import { base64ToBytes, bytesToBase64 } from '../../../utils'
+import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import {
   MsgDelistAmino,
   MsgExecuteAmino,
@@ -64,7 +64,7 @@ export const aminoConverters: AminoConverters = {
       code_bytes:
         msg.codeBytes.length === 0
           ? undefined
-          : msg.codeBytes.map((bytes) => bytesToBase64(bytes)),
+          : msg.codeBytes.map((bytes) => toBase64(bytes)),
       upgrade_policy:
         msg.upgradePolicy === UpgradePolicy.UNSPECIFIED
           ? undefined
@@ -73,7 +73,7 @@ export const aminoConverters: AminoConverters = {
     fromAmino: (msg: MsgPublishAmino): MsgPublish => ({
       sender: msg.sender,
       codeBytes: msg.code_bytes
-        ? msg.code_bytes.map((str) => base64ToBytes(str))
+        ? msg.code_bytes.map((str) => fromBase64(str))
         : [],
       upgradePolicy: msg.upgrade_policy ?? UpgradePolicy.UNSPECIFIED,
     }),
@@ -89,7 +89,7 @@ export const aminoConverters: AminoConverters = {
       args:
         msg.args.length === 0
           ? undefined
-          : msg.args.map((bytes) => bytesToBase64(bytes)),
+          : msg.args.map((bytes) => toBase64(bytes)),
     }),
     fromAmino: (msg: MsgExecuteAmino): MsgExecute => ({
       sender: msg.sender,
@@ -97,7 +97,7 @@ export const aminoConverters: AminoConverters = {
       moduleName: msg.module_name,
       functionName: msg.function_name,
       typeArgs: msg.type_args ?? [],
-      args: msg.args ? msg.args.map((arg) => base64ToBytes(arg)) : [],
+      args: msg.args ? msg.args.map((arg) => fromBase64(arg)) : [],
     }),
   },
   '/initia.move.v1.MsgExecuteJSON': {
@@ -123,31 +123,31 @@ export const aminoConverters: AminoConverters = {
     aminoType: 'move/MsgScript',
     toAmino: (msg: MsgScript): MsgScriptAmino => ({
       sender: msg.sender,
-      code_bytes: bytesToBase64(msg.codeBytes),
+      code_bytes: toBase64(msg.codeBytes),
       type_args: msg.typeArgs.length === 0 ? undefined : msg.typeArgs,
       args:
         msg.args.length === 0
           ? undefined
-          : msg.args.map((bytes) => bytesToBase64(bytes)),
+          : msg.args.map((bytes) => toBase64(bytes)),
     }),
     fromAmino: (msg: MsgScriptAmino): MsgScript => ({
       sender: msg.sender,
-      codeBytes: base64ToBytes(msg.code_bytes),
+      codeBytes: fromBase64(msg.code_bytes),
       typeArgs: msg.type_args ?? [],
-      args: msg.args ? msg.args.map((arg) => base64ToBytes(arg)) : [],
+      args: msg.args ? msg.args.map((arg) => fromBase64(arg)) : [],
     }),
   },
   '/initia.move.v1.MsgScriptJSON': {
     aminoType: 'move/MsgScriptJSON',
     toAmino: (msg: MsgScriptJSON): MsgScriptJSONAmino => ({
       sender: msg.sender,
-      code_bytes: bytesToBase64(msg.codeBytes),
+      code_bytes: toBase64(msg.codeBytes),
       type_args: msg.typeArgs.length === 0 ? undefined : msg.typeArgs,
       args: msg.args.length === 0 ? undefined : msg.args,
     }),
     fromAmino: (msg: MsgScriptJSONAmino): MsgScriptJSON => ({
       sender: msg.sender,
-      codeBytes: base64ToBytes(msg.code_bytes),
+      codeBytes: fromBase64(msg.code_bytes),
       typeArgs: msg.type_args ?? [],
       args: msg.args ?? [],
     }),
@@ -160,7 +160,7 @@ export const aminoConverters: AminoConverters = {
       code_bytes:
         msg.codeBytes.length === 0
           ? undefined
-          : msg.codeBytes.map((bytes) => bytesToBase64(bytes)),
+          : msg.codeBytes.map((bytes) => toBase64(bytes)),
       upgrade_policy:
         msg.upgradePolicy === UpgradePolicy.UNSPECIFIED
           ? undefined
@@ -170,7 +170,7 @@ export const aminoConverters: AminoConverters = {
       authority: msg.authority,
       sender: msg.sender,
       codeBytes: msg.code_bytes
-        ? msg.code_bytes.map((str) => base64ToBytes(str))
+        ? msg.code_bytes.map((str) => fromBase64(str))
         : [],
       upgradePolicy: msg.upgrade_policy ?? UpgradePolicy.UNSPECIFIED,
     }),
@@ -187,7 +187,7 @@ export const aminoConverters: AminoConverters = {
       args:
         msg.args.length === 0
           ? undefined
-          : msg.args.map((bytes) => bytesToBase64(bytes)),
+          : msg.args.map((bytes) => toBase64(bytes)),
     }),
     fromAmino: (msg: MsgGovExecuteAmino): MsgGovExecute => ({
       authority: msg.authority,
@@ -196,7 +196,7 @@ export const aminoConverters: AminoConverters = {
       moduleName: msg.module_name,
       functionName: msg.function_name,
       typeArgs: msg.type_args ?? [],
-      args: msg.args ? msg.args.map((arg) => base64ToBytes(arg)) : [],
+      args: msg.args ? msg.args.map((arg) => fromBase64(arg)) : [],
     }),
   },
   '/initia.move.v1.MsgGovExecuteJSON': {
@@ -225,19 +225,19 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgGovScript): MsgGovScriptAmino => ({
       authority: msg.authority,
       sender: msg.sender,
-      code_bytes: bytesToBase64(msg.codeBytes),
+      code_bytes: toBase64(msg.codeBytes),
       type_args: msg.typeArgs.length === 0 ? undefined : msg.typeArgs,
       args:
         msg.args.length === 0
           ? undefined
-          : msg.args.map((bytes) => bytesToBase64(bytes)),
+          : msg.args.map((bytes) => toBase64(bytes)),
     }),
     fromAmino: (msg: MsgGovScriptAmino): MsgGovScript => ({
       authority: msg.authority,
       sender: msg.sender,
-      codeBytes: base64ToBytes(msg.code_bytes),
+      codeBytes: fromBase64(msg.code_bytes),
       typeArgs: msg.type_args ?? [],
-      args: msg.args ? msg.args.map((arg) => base64ToBytes(arg)) : [],
+      args: msg.args ? msg.args.map((arg) => fromBase64(arg)) : [],
     }),
   },
   '/initia.move.v1.MsgGovScriptJSON': {
@@ -245,14 +245,14 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgGovScriptJSON): MsgGovScriptJSONAmino => ({
       authority: msg.authority,
       sender: msg.sender,
-      code_bytes: bytesToBase64(msg.codeBytes),
+      code_bytes: toBase64(msg.codeBytes),
       type_args: msg.typeArgs.length === 0 ? undefined : msg.typeArgs,
       args: msg.args.length === 0 ? undefined : msg.args,
     }),
     fromAmino: (msg: MsgGovScriptJSONAmino): MsgGovScriptJSON => ({
       authority: msg.authority,
       sender: msg.sender,
-      codeBytes: base64ToBytes(msg.code_bytes),
+      codeBytes: fromBase64(msg.code_bytes),
       typeArgs: msg.type_args ?? [],
       args: msg.args ?? [],
     }),
