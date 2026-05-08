@@ -3,22 +3,6 @@ import { MsgAmino, MsgConverter } from '../types'
 import { Any } from '@initia/initia.proto/google/protobuf/any'
 import { GeneratedType } from '@cosmjs/proto-signing'
 
-// base64 convert
-export function bytesToBase64(uint8Array: Uint8Array) {
-  const binaryString = String.fromCharCode(...uint8Array)
-  return btoa(binaryString)
-}
-
-export function base64ToBytes(base64Str: string) {
-  const binaryString = atob(base64Str)
-
-  const uint8Array = new Uint8Array(binaryString.length)
-  for (let i = 0; i < binaryString.length; i++) {
-    uint8Array[i] = binaryString.charCodeAt(i)
-  }
-  return uint8Array
-}
-
 export function createMsgConverter(
   registry: readonly [string, GeneratedType][],
   aminoConverters: AminoConverters

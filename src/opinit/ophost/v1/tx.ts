@@ -31,7 +31,7 @@ import {
 } from './tx.aminoTypes'
 import { Coin } from '../../../cosmos/base/v1beta1/coin'
 import { Coin as Coin_pb } from '@initia/initia.proto/cosmos/base/v1beta1/coin'
-import { base64ToBytes, bytesToBase64 } from '../../../utils'
+import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import { BatchInfo, BridgeConfig, Params } from './types'
 import {
   BatchInfo as BatchInfo_pb,
@@ -64,13 +64,13 @@ export const aminoConverters: AminoConverters = {
       submitter: msg.submitter,
       bridge_id: msg.bridgeId.toString(),
       batch_bytes:
-        msg.batchBytes.length === 0 ? undefined : bytesToBase64(msg.batchBytes),
+        msg.batchBytes.length === 0 ? undefined : toBase64(msg.batchBytes),
     }),
     fromAmino: (msg: MsgRecordBatchAmino): MsgRecordBatch => ({
       submitter: msg.submitter,
       bridgeId: BigInt(msg.bridge_id),
       batchBytes: msg.batch_bytes
-        ? base64ToBytes(msg.batch_bytes)
+        ? fromBase64(msg.batch_bytes)
         : new Uint8Array([]),
     }),
   },
@@ -95,7 +95,7 @@ export const aminoConverters: AminoConverters = {
       output_index: msg.outputIndex.toString(),
       l2_block_number: msg.l2BlockNumber.toString(),
       output_root:
-        msg.outputRoot.length === 0 ? undefined : bytesToBase64(msg.outputRoot),
+        msg.outputRoot.length === 0 ? undefined : toBase64(msg.outputRoot),
     }),
     fromAmino: (msg: MsgProposeOutputAmino): MsgProposeOutput => ({
       proposer: msg.proposer,
@@ -103,7 +103,7 @@ export const aminoConverters: AminoConverters = {
       outputIndex: BigInt(msg.output_index),
       l2BlockNumber: BigInt(msg.l2_block_number),
       outputRoot: msg.output_root
-        ? base64ToBytes(msg.output_root)
+        ? fromBase64(msg.output_root)
         : new Uint8Array([]),
     }),
   },
@@ -129,7 +129,7 @@ export const aminoConverters: AminoConverters = {
       bridge_id: msg.bridgeId.toString(),
       to: msg.to,
       amount: Coin.toAmino(msg.amount as Coin_pb),
-      data: msg.data.length === 0 ? undefined : bytesToBase64(msg.data),
+      data: msg.data.length === 0 ? undefined : toBase64(msg.data),
     }),
     fromAmino: (
       msg: MsgInitiateTokenDepositAmino
@@ -138,7 +138,7 @@ export const aminoConverters: AminoConverters = {
       bridgeId: BigInt(msg.bridge_id),
       to: msg.to,
       amount: Coin.fromAmino(msg.amount),
-      data: msg.data ? base64ToBytes(msg.data) : new Uint8Array([]),
+      data: msg.data ? fromBase64(msg.data) : new Uint8Array([]),
     }),
   },
 
@@ -153,14 +153,14 @@ export const aminoConverters: AminoConverters = {
       withdrawal_proofs:
         msg.withdrawalProofs.length === 0
           ? undefined
-          : msg.withdrawalProofs.map((proof) => bytesToBase64(proof)),
+          : msg.withdrawalProofs.map((proof) => toBase64(proof)),
       from: msg.from,
       to: msg.to,
       sequence: msg.sequence.toString(),
       amount: Coin.toAmino(msg.amount as Coin_pb),
-      version: bytesToBase64(msg.version),
-      storage_root: bytesToBase64(msg.storageRoot),
-      last_block_hash: bytesToBase64(msg.lastBlockHash),
+      version: toBase64(msg.version),
+      storage_root: toBase64(msg.storageRoot),
+      last_block_hash: toBase64(msg.lastBlockHash),
     }),
     fromAmino: (
       msg: MsgFinalizeTokenWithdrawalAmino
@@ -169,15 +169,15 @@ export const aminoConverters: AminoConverters = {
       bridgeId: BigInt(msg.bridge_id),
       outputIndex: BigInt(msg.output_index),
       withdrawalProofs: msg.withdrawal_proofs
-        ? msg.withdrawal_proofs.map((proof) => base64ToBytes(proof))
+        ? msg.withdrawal_proofs.map((proof) => fromBase64(proof))
         : [],
       from: msg.from,
       to: msg.to,
       sequence: BigInt(msg.sequence),
       amount: Coin.fromAmino(msg.amount),
-      version: base64ToBytes(msg.version),
-      storageRoot: base64ToBytes(msg.storage_root),
-      lastBlockHash: base64ToBytes(msg.last_block_hash),
+      version: fromBase64(msg.version),
+      storageRoot: fromBase64(msg.storage_root),
+      lastBlockHash: fromBase64(msg.last_block_hash),
     }),
   },
 
@@ -242,12 +242,12 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgUpdateMetadata): MsgUpdateMetadataAmino => ({
       authority: msg.authority,
       bridge_id: msg.bridgeId.toString(),
-      metadata: bytesToBase64(msg.metadata),
+      metadata: toBase64(msg.metadata),
     }),
     fromAmino: (msg: MsgUpdateMetadataAmino): MsgUpdateMetadata => ({
       authority: msg.authority,
       bridgeId: BigInt(msg.bridge_id),
-      metadata: base64ToBytes(msg.metadata),
+      metadata: fromBase64(msg.metadata),
     }),
   },
 

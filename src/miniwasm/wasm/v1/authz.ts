@@ -12,7 +12,7 @@ import {
   AcceptedMessagesFilter,
 } from '@initia/initia.proto/cosmwasm/wasm/v1/authz'
 import { AccessConfig, AccessConfigAmino } from './types'
-import { base64ToBytes, bytesToBase64 } from '../../../utils'
+import { fromBase64, toBase64 } from '@cosmjs/encoding'
 import { Coin, CoinAmino } from '../../../cosmos/base/v1beta1/coin'
 import { Any } from '@initia/initia.proto/google/protobuf/any'
 
@@ -82,13 +82,13 @@ export interface ContractMigrationAuthorizationAmino {
 
 export const CodeGrant = {
   toAmino: (msg: CodeGrant_pb): CodeGrantAmino => ({
-    code_hash: bytesToBase64(msg.codeHash),
+    code_hash: toBase64(msg.codeHash),
     instantiate_permission: msg.instantiatePermission
       ? AccessConfig.toAmino(msg.instantiatePermission)
       : undefined,
   }),
   fromAmino: (msg: CodeGrantAmino): CodeGrant_pb => ({
-    codeHash: base64ToBytes(msg.code_hash),
+    codeHash: fromBase64(msg.code_hash),
     instantiatePermission: msg.instantiate_permission
       ? AccessConfig.fromAmino(msg.instantiate_permission)
       : undefined,
@@ -240,7 +240,7 @@ namespace ContractFilter {
           type: 'wasm/AcceptedMessagesFilter',
           value: {
             messages: acceptedMessagesFilter.messages.map((message) =>
-              bytesToBase64(message)
+              toBase64(message)
             ),
           },
         }
@@ -272,7 +272,7 @@ namespace ContractFilter {
           typeUrl: '/cosmwasm.wasm.v1.AcceptedMessagesFilter',
           value: AcceptedMessagesFilter.encode({
             messages: msg.value.messages.map((message) =>
-              base64ToBytes(message)
+              fromBase64(message)
             ),
           }).finish(),
         }

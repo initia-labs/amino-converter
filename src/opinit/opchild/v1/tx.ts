@@ -23,11 +23,8 @@ import {
 } from './tx.aminoTypes'
 import { Coin } from '../../../cosmos/base/v1beta1/coin'
 import { Coin as Coin_pb } from '@initia/initia.proto/cosmos/base/v1beta1/coin'
-import {
-  base64ToBytes,
-  bytesToBase64,
-  createMsgConverter,
-} from '../../../utils'
+import { fromBase64, toBase64 } from '@cosmjs/encoding'
+import { createMsgConverter } from '../../../utils'
 import {
   BridgeInfo as BridgeInfo_pb,
   Params as Params_pb,
@@ -59,7 +56,7 @@ export const aminoConverters: AminoConverters = {
       sequence: msg.sequence.toString(),
       height: msg.height.toString(),
       base_denom: msg.baseDenom,
-      data: msg.data.length === 0 ? undefined : bytesToBase64(msg.data),
+      data: msg.data.length === 0 ? undefined : toBase64(msg.data),
     }),
     fromAmino: (
       msg: MsgFinalizeTokenDepositAmino
@@ -71,7 +68,7 @@ export const aminoConverters: AminoConverters = {
       sequence: BigInt(msg.sequence),
       height: BigInt(msg.height),
       baseDenom: msg.base_denom,
-      data: msg.data ? base64ToBytes(msg.data) : new Uint8Array([]),
+      data: msg.data ? fromBase64(msg.data) : new Uint8Array([]),
     }),
   },
 
@@ -139,12 +136,12 @@ export const aminoConverters: AminoConverters = {
     toAmino: (msg: MsgUpdateOracle): MsgUpdateOracleAmino => ({
       sender: msg.sender,
       height: msg.height.toString(),
-      data: msg.data.length === 0 ? undefined : bytesToBase64(msg.data),
+      data: msg.data.length === 0 ? undefined : toBase64(msg.data),
     }),
     fromAmino: (msg: MsgUpdateOracleAmino): MsgUpdateOracle => ({
       sender: msg.sender,
       height: BigInt(msg.height),
-      data: msg.data ? base64ToBytes(msg.data) : new Uint8Array([]),
+      data: msg.data ? fromBase64(msg.data) : new Uint8Array([]),
     }),
   },
 
