@@ -68,7 +68,7 @@ export const aminoConverters: AminoConverters = {
       from: msg.from,
       to: msg.to,
       amount: Coin.fromAmino(msg.amount),
-      sequence: BigInt(msg.sender),
+      sequence: BigInt(msg.sequence),
       height: BigInt(msg.height),
       baseDenom: msg.base_denom,
       data: msg.data ? base64ToBytes(msg.data) : new Uint8Array([]),
